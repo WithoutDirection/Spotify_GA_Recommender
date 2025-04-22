@@ -1,0 +1,9 @@
+# Data files in folder
+archive/
+
+# Data files in root
+*.zip
+
+# API related files
+*.cache
+*.json
