@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Recommendations{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Your Music Recommendations</h2>
+        
+        <div class="alert alert-success mb-4">
+            <p>Here are your personalized music recommendations based on your preferences!</p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for rec in recommendations %}
+            <div class="col">
+                <div class="card track-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ rec.track.track_name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ rec.track.artist_name }}</h6>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No recommendations available. Please rate some tracks first.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-5 text-center">
+            <p>Want different recommendations?</p>
+            <a href="{% url 'initial_rating' %}" class="btn btn-primary">Start Over</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

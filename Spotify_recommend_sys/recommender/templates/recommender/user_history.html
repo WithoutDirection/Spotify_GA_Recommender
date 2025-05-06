@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}My Ratings{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">My Rating History</h2>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>Artist</th>
+                            <th>Track</th>
+                            <th>Your Rating</th>
+                            <th>Date Rated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rating in user_ratings %}
+                        <tr>
+                            <td>{{ rating.track.artist_name }}</td>
+                            <td>{{ rating.track.track_name }}</td>
+                            <td>{{ rating.rating }}</td>
+                            <td>{{ rating.created_at|date:"M d, Y" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">You haven't rated any tracks yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'initial_rating' %}" class="btn btn-primary">Get New Recommendations</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

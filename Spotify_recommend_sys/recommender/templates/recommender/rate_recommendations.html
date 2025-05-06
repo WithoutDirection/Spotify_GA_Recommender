@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load math_filters %}  {# Make sure to load your custom filters #}
+
+{% block title %}Rate Recommendations{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4">Rate Recommendations</h2>
+        
+        <div class="progress mb-4">
+            <div class="progress-bar" role="progressbar" 
+                style="width: {{ current_generation|floatformat:0|multiply:100|divide:total_generations }}%" 
+                aria-valuenow="{{ current_generation }}" aria-valuemin="0" aria-valuemax="{{ total_generations }}">
+                Generation {{ current_generation }}/{{ total_generations }}
+            </div>
+        </div>
+        
+        <div class="alert alert-info mb-4">
+            <p>Please rate these recommendations to help us refine your music preferences.</p>
+        </div>
+
+        <form method="post" class="rating-form">
+            {% csrf_token %}
+            
+            {% for rec in recommendations %}
+            <div class="card track-card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ rec.artist_name }} - {{ rec.track_name }}</h5>
+                    <div class="rating-options">
+                        {% for value in '12345' %}
+                        <label>
+                            <input type="radio" name="rec_{{ forloop.parentloop.counter0 }}" value="{{ value }}" required>
+                            {{ value }}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" name="satisfied" id="id_satisfied">
+                <label class="form-check-label" for="id_satisfied">
+                    I'm satisfied with these recommendations
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit Ratings</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

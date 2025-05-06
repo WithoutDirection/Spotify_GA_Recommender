@@ -1,9 +1,9 @@
 import pandas as pd
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
-import os
-import json
-import requests
+# import spotipy
+# from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+# import os
+# import json
+# import requests
 import base64
 
 # Load the data
@@ -63,12 +63,22 @@ def get_features(track_id, access_token):
         return None
 
 if __name__ == "__main__":
-    # Authenticate with Spotify API
-    sp = spotipy.Spotify(auth_manager=create_spotify_oauth())
-    # Get the access token
-    access_token = get_token()
-    # Get the features for a specific track ID
-    track_id = "4iV5Isq9ZsYc0y2X1a3v7d"  # Replace with your track ID
-    features = get_features(track_id, access_token)
-    print(features)
-
+    # # Authenticate with Spotify API
+    # sp = spotipy.Spotify(auth_manager=create_spotify_oauth())
+    # # Get the access token
+    # access_token = get_token()
+    # # Get the features for a specific track ID
+    # track_id = "4iV5Isq9ZsYc0y2X1a3v7d"  # Replace with your track ID
+    # features = get_features(track_id, access_token)
+    # print(features)
+    
+    # open the csv file and remove the row with empty value
+    music_pool = pd.read_csv("music_pool.csv")
+    music_pool = music_pool.dropna()
+    # save the csv file
+    music_pool.to_csv("music_pool.csv", index=False)
+    
+    # read csv file to pandas dataframe
+    music_pool = pd.read_csv("music_pool.csv")
+    # check if there is empty value in each column
+    print(music_pool.isnull().sum())
