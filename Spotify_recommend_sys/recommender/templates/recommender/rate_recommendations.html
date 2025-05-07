@@ -27,6 +27,15 @@
             <div class="card track-card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ rec.artist_name }} - {{ rec.track_name }}</h5>
+                    <div class="spotify-player mb-3">
+                        <iframe style="border-radius:12px" 
+                                src="https://open.spotify.com/embed/track/{{ rec.track_id }}" 
+                                width="100%" 
+                                height="80" 
+                                frameborder="0" 
+                                allowtransparency="true" 
+                                allow="encrypted-media; autoplay; clipboard-write; fullscreen; picture-in-picture"></iframe>
+                    </div>
                     <div class="rating-options">
                         {% for value in '12345' %}
                         <label>

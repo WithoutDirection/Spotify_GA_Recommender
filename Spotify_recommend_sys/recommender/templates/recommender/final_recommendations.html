@@ -18,6 +18,15 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ rec.track.track_name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ rec.track.artist_name }}</h6>
+                        <div class="spotify-player mb-3">
+                            <iframe style="border-radius:12px" 
+                                    src="https://open.spotify.com/embed/track/{{ rec.track_id }}" 
+                                    width="100%" 
+                                    height="80" 
+                                    frameborder="0" 
+                                    allowtransparency="true" 
+                                    allow="encrypted-media; autoplay; clipboard-write; fullscreen; picture-in-picture"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -248,6 +248,7 @@ def rate_recommendations(request):
                     track, created = Track.objects.get_or_create(
                         track_id=rec['track_id'],
                         defaults={
+                            'track_id': rec['track_id'],
                             'artist_name': rec.get('artist_name', ''),
                             'track_name': rec.get('track_name', ''),
                             'acousticness': rec.get('acousticness', 0),
@@ -287,6 +288,7 @@ def rate_recommendations(request):
                 return redirect('final_recommendations')
             
             # Otherwise, continue with next generation
+            # ! debug: Error generating next generation: 'NoneType' object has no attribute 'predict'
             try:
                 # Simulate user feedback for IGA
                 def user_feedback(population, gen):

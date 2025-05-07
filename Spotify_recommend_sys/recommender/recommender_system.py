@@ -179,16 +179,72 @@ class SpotifyRecommender:
     
     def find_similar_track(self, chromosome):
         """Find the most similar actual track to a chromosome"""
-        # Get the cluster that would contain this chromosome
-        chromosome_df = pd.DataFrame([chromosome], columns=self.features)
-        cluster_id = self.cluster_model.predict(chromosome_df)[0]
-        cluster_tracks = self.clusters[cluster_id]
+        try:
+            # First, verify cluster_model exists
+            if self.cluster_model is None:
+                # Initialize the cluster model if it doesn't exist
+                # This assumes features are already normalized/processed
+                from sklearn.cluster import KMeans
+                
+                # Get all feature data
+                feature_data = self.data[self.features].values
+                
+                # Use a reasonable number of clusters (adjust as needed)
+                n_clusters = min(20, len(self.data) // 50 + 1)  # Rule of thumb
+                
+                # Create and fit the model
+                self.cluster_model = KMeans(n_clusters=n_clusters, random_state=42)
+                self.cluster_model.fit(feature_data)
+                
+                # Pre-compute clusters to avoid repeated predictions
+                cluster_labels = self.cluster_model.predict(feature_data)
+                self.clusters = {}
+                for i, label in enumerate(cluster_labels):
+                    if label not in self.clusters:
+                        self.clusters[label] = self.data.iloc[[i]]
+                    else:
+                        self.clusters[label] = pd.concat([self.clusters[label], self.data.iloc[[i]]])
+            
+            # Get the cluster that would contain this chromosome
+            chromosome_df = pd.DataFrame([chromosome], columns=self.features)
+            cluster_id = self.cluster_model.predict(chromosome_df)[0]
+            
+            # Check if the cluster_id exists in self.clusters
+            if cluster_id not in self.clusters:
+                # Fall back to finding the most similar track across all data
+                return self._find_similar_track_full_search(chromosome)
+            
+            cluster_tracks = self.clusters[cluster_id]
+            
+            # Find most similar track in the cluster
+            min_distance = float('inf')
+            most_similar_track = None
+            
+            for _, track in cluster_tracks.iterrows():
+                track_chromosome = self.chromosome_representation(track)
+                distance = self.distance(chromosome, track_chromosome)
+                
+                if distance < min_distance:
+                    min_distance = distance
+                    most_similar_track = track.to_dict()
+            
+            return most_similar_track
         
-        # Find most similar track in the cluster
+        except Exception as e:
+            print(f"Error in find_similar_track: {str(e)}")
+            # Fallback method when clustering fails
+            return self._find_similar_track_full_search(chromosome)
+        
+    def _find_similar_track_full_search(self, chromosome):
+        """Fallback method to find similar track without using clustering"""
         min_distance = float('inf')
         most_similar_track = None
         
-        for _, track in cluster_tracks.iterrows():
+        # Sample up to 1000 tracks from the dataset to avoid performance issues
+        sample_size = min(1000, len(self.data))
+        sampled_data = self.data.sample(n=sample_size, random_state=42)
+        
+        for _, track in sampled_data.iterrows():
             track_chromosome = self.chromosome_representation(track)
             distance = self.distance(chromosome, track_chromosome)
             
