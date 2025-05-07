@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p#0dry&-s2za6&h9!^$)_9r(1&3!j7sl=jnm=jdcwz0$ul-puc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['potify-ga-recommender.onrender.com']
 
 
 # Application definition
