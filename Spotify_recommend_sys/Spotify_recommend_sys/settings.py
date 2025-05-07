@@ -127,7 +127,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'
 
-ALLOWED_HOSTS = ['Spotify_recommend_sys.onrender.com']
+# ALLOWED_HOSTS = ['spotify-ga-recommender.onrender.com']
 
 
 
