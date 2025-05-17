@@ -29,7 +29,8 @@
                 <h5 class="card-title">Get Started</h5>
                 <p class="card-text">Please log in or register to start receiving personalized music recommendations.</p>
                 <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
-                <a href="{% url 'register' %}" class="btn btn-outline-light">Register</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-secondary me-2">Register</a>
+                <a href="{% url 'guest_page' %}" class="btn btn-outline-info">Learn More</a>
             </div>
         </div>
         {% endif %}

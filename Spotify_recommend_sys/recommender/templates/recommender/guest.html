@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Experience Music Recommendations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Hero Section -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 mb-3">Experience Personalized Music Discovery</h1>
+                <p class="lead">Find your next favorite songs with our intelligent recommendation system</p>
+                <div class="mt-4">
+                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-4 me-2">Sign Up Free</a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-4">Login</a>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <h3 class="h4 card-title">Smart Recommendations</h3>
+                            <p class="card-text">Our fuzzy logic algorithm learns your preferences and adapts over time.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <h3 class="h4 card-title">Discover New Artists</h3>
+                            <p class="card-text">Expand your musical horizons with carefully selected recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <h3 class="h4 card-title">Personalized Experience</h3>
+                            <p class="card-text">Your recommendations evolve with each rating you provide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Section -->
+            <div class="card mb-5 border-0 shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">How Our System Works</h2>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <ol class="list-group list-group-flush">
+                                <li class="list-group-item d-flex">
+                                    <span class="badge bg-primary rounded-pill me-3">1</span>
+                                    <div>
+                                        <h5 class="mb-1">Rate Songs</h5>
+                                        <p class="mb-0 text-muted">Rate a small selection of songs to establish your preferences</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <span class="badge bg-primary rounded-pill me-3">2</span>
+                                    <div>
+                                        <h5 class="mb-1">Get Recommendations</h5>
+                                        <p class="mb-0 text-muted">Receive initial music recommendations based on your ratings</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <span class="badge bg-primary rounded-pill me-3">3</span>
+                                    <div>
+                                        <h5 class="mb-1">Provide Feedback</h5>
+                                        <p class="mb-0 text-muted">Let us know what you think of the recommendations</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <span class="badge bg-primary rounded-pill me-3">4</span>
+                                    <div>
+                                        <h5 class="mb-1">Algorithm Evolves</h5>
+                                        <p class="mb-0 text-muted">Our system refines its understanding of your taste</p>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <span class="badge bg-primary rounded-pill me-3">5</span>
+                                    <div>
+                                        <h5 class="mb-1">Discover Great Music</h5>
+                                        <p class="mb-0 text-muted">Enjoy increasingly accurate music recommendations</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section (Placeholder) -->
+            <div class="row mb-5">
+                <div class="col-12 text-center mb-4">
+                    <h2>What Our Users Say</h2>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <p class="fst-italic mb-3">"This app completely transformed how I discover music. The recommendations are spot-on!"</p>
+                            <div class="d-flex align-items-center">
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Alex P.</h6>
+                                    <small class="text-muted">Music Enthusiast</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <p class="fst-italic mb-3">"I've discovered so many new artists that match my taste perfectly. Highly recommended!"</p>
+                            <div class="d-flex align-items-center">
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Jordan K.</h6>
+                                    <small class="text-muted">Avid Listener</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <p class="fst-italic mb-3">"The more I use it, the better it gets. It's like having a personal DJ who knows my taste."</p>
+                            <div class="d-flex align-items-center">
+                                <div class="ms-3">
+                                    <h6 class="mb-0">Morgan T.</h6>
+                                    <small class="text-muted">Regular User</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center py-4">
+                <h2 class="mb-4">Ready to Discover Your Perfect Sound?</h2>
+                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-5">Get Started Now</a>
+                <p class="mt-3 text-muted">No credit card required. Free to use.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
