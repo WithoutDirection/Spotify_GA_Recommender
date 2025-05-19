@@ -188,7 +188,9 @@ class SpotifyRecommender:
         if not user_ratings or self.data is None or self.data.empty:
             logger.warning("Cannot generate recommendations: missing data or ratings")
             return []
-            
+        import time
+        start_time = time.time()
+        logger.info(f"Starting fcb_rs for {len(user_ratings)} ratings, top_n={top_n}")
         # Get liked tracks (rated above average)
         user_avg_rating = sum(user_ratings.values()) / len(user_ratings)
         liked_tracks = []
@@ -206,22 +208,26 @@ class SpotifyRecommender:
             
         # Get unrated tracks
         unrated_tracks = self.data[~self.data['track_id'].isin(user_ratings.keys())]
-        
-        # Calculate recommendation scores for unrated tracks
         recommendations = []
-        
-        for _, track in unrated_tracks.iterrows():
-            track_dict = track.to_dict()
+        # 用 itertuples 取代 iterrows
+        for track in unrated_tracks.itertuples(index=False):
+            # 直接用 track.track_id, track.artist_name, ... 取值
+            track_dict = {feature: getattr(track, feature) for feature in self.FEATURES}
+            track_dict['track_id'] = track.track_id
+            track_dict['artist_name'] = track.artist_name
+            track_dict['track_name'] = track.track_name
+
             score = self.recommendation_score(track_dict, liked_tracks)
             recommendations.append({
-                'track_id': track_dict['track_id'],
-                'artist_name': track_dict['artist_name'],
-                'track_name': track_dict['track_name'],
+                'track_id': track.track_id,
+                'artist_name': track.artist_name,
+                'track_name': track.track_name,
                 'score': score
             })
         
         # Sort by score and get top N
         recommendations.sort(key=lambda x: x['score'], reverse=True)
+        logger.info(f"fcb_rs completed in {time.time() - start_time:.2f} seconds")
         return recommendations[:top_n]
     
     def get_sample_tracks(self, n_per_cluster=1):
